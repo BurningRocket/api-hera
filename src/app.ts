@@ -1,18 +1,21 @@
 import morgan from 'morgan';
 import express from 'express';
-import router from './routes/routes';
 import * as dotenv from 'dotenv';
-
-const app = express();
+import swaggerUi from 'swagger-ui-express';
+import swaggerjson from '../swagger.json';
 
 // Configuring .env
 dotenv.config();
+// Express
+const app = express();
 // Logging
 app.use(morgan('dev'));
 // Parse the request
 app.use(express.urlencoded({ extended: false }));
 // Takes care of JSON data
 app.use(express.json());
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerjson));
 
 // RULES OF OUR API raw
 app.use((req, res, next) => {
@@ -29,6 +32,9 @@ app.use((req, res, next) => {
 
     next();
 });
+
+//Importing routes after doing the configurations because of the mysql2 connection
+import router from './routes/router';
 
 //Routes
 app.use('/api', router);

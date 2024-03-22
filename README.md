@@ -56,6 +56,8 @@ Projeto de back-end do sistema Hera, desenvolvido em Node.js.
 - Cors
 - Body-parser
 
-## swagger
+## Swagger
+
+A documentação da API pode ser acessada através do link:
 
 - <http://localhost:8087/api-docs>

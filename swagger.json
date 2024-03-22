@@ -1,0 +1,77 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SISTEMA-HERA-API",
+    "description": "Basic api swagger for front-end and back-end communication",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8087",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "Produtos",
+      "description": "Operations about produtos"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Operations about usuarios"
+    }
+  ],
+  "paths": {
+    "/produtos": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Returns a list of products.",
+        "description": "Optional extended description in Markdown.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "codigo",
+            "description": "Codigo of the product to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "descricao",
+            "description": "Description of the product to return",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON array of products",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "codigo": {
+                    "type": "integer",
+                    "format": "int64"
+                  },  
+                  "descricao": {
+                    "type": "string"
+                  },
+                  "unidade": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

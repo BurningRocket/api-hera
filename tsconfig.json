@@ -14,5 +14,6 @@
       "allowJs": true,
       "moduleResolution": "node",
       "lib": ["es2015"],
+      "resolveJsonModule": true,
   }
 }

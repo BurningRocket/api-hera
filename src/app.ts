@@ -2,7 +2,7 @@ import morgan from 'morgan';
 import express from 'express';
 import * as dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
-import swaggerjson from '../swagger.json';
+import swaggerjson from './swagger/swagger.json';
 
 // Configuring .env
 dotenv.config();

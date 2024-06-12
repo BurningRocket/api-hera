@@ -3,6 +3,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerjson from './swagger/swagger.json';
+import * as dynamoose from "dynamoose";
 
 // Configuring .env
 dotenv.config();
@@ -34,10 +35,10 @@ app.use((req, res, next) => {
 });
 
 //Importing routes after doing the configurations because of the mysql2 connection
-import router from './routes/router';
+import routes from './routes/routes';
 
 //Routes
-app.use('/api', router);
+app.use('/api', routes);
 
 app.get('/', (req, res) => {
     res.status(200).send('Server is operational!');
@@ -50,6 +51,18 @@ app.use((req, res, next) => {
         message: error.message
     });
 });
+
+// Create new DynamoDB instance
+const ddb = new dynamoose.aws.ddb.DynamoDB({
+    "credentials": {
+        "accessKeyId": process.env.AWS_ACCESS_KEY_ID || "",
+        "secretAccessKey": process.env.AWS_SECRET_ACCESS_KEY || ""
+    },
+    "region": process.env.AWS_REGION || "us-east-1"
+});
+
+// Set DynamoDB instance to the Dynamoose DDB instance
+dynamoose.aws.ddb.set(ddb);
 
 // Server
 export default app;

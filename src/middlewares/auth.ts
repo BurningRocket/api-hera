@@ -7,9 +7,6 @@ export class AuthMiddleware {
 
         //FIXME: Not receiving the token from authorization header
         let token = req.headers['Authorization'] || req.headers['authorization'];
-        console.log(token)
-
-        console.log(token)
 
         if (!token) {
             return res.status(403).send("Um token é nescessário para validar");

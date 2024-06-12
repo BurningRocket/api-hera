@@ -1,4 +1,4 @@
-import mysql, { RowDataPacket, Pool, PoolOptions } from 'mysql2';
+import mysql, { Pool, PoolOptions } from 'mysql2';
 
 export class ProdutoService {
   private connection: Pool;

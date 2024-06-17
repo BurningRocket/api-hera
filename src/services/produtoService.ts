@@ -71,4 +71,16 @@ export class ProdutoService {
     return produtosCriados;
   }
 
+  public async createProduto(produto: IProduto) {
+      return Produto.create(produto);
+  }
+
+  public async updateProduto(produto: IProduto) {
+      return Produto.update(produto);
+  }
+
+  public async deleteProduto(id: string) {
+      return Produto.delete(id);
+  }
+
 }

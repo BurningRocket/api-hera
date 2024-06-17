@@ -1,4 +1,5 @@
-import mysql, { Pool, PoolOptions } from 'mysql2';
+import mysql, {Pool, PoolOptions, RowDataPacket} from 'mysql2';
+import {IProduto, Produto} from '../models/Produto';
 
 export class ProdutoService {
   private connection: Pool;
@@ -21,21 +22,53 @@ export class ProdutoService {
   }
 
   public async getProdutos() {
+    return Produto.scan().exec();
+  }
+
+  public async getProdutoSql() {
     const sql = 'SELECT * FROM vtech_produtos';
-    const produtos = await this.connection.promise().query(sql);    
-    return produtos[0];
+    const produtos = await this.connection.promise().query(sql);
+    return produtos[0] as RowDataPacket;
   }
 
   public async getProdutoByCodigo(codigo: number) {
-    const sql = 'SELECT * FROM vtech_produtos WHERE codigo = ?';
-    const produto = await this.connection.promise().query(sql, [codigo]);
-    return produto[0];
+    return Produto.get(codigo.toString());
   }
 
   public async getProdutosByDescricao(descricao: string) {
-    const sql = 'SELECT * FROM vtech_produtos WHERE descricao like ?';
-    const produtos = await this.connection.promise().query(sql, [descricao]);
-    return produtos[0];
+    return Produto.scan('descricao').contains(descricao).exec();
+  }
+
+  public async sincronizarProdutos() {
+    const produtos: RowDataPacket = await this.getProdutoSql();
+    let produtosCriados = 0;
+
+    for (let i = 0; i < produtos.length; i++) {
+      const produto = produtos[i];
+
+      const produtoModel = new Produto({
+        id: produto.codigo.toString(),
+        descricao: produto.descricao,
+        descricaoSite: produto.descricao_site,
+        unidade: produto.unidade,
+        peso: produto.peso,
+        valorCapital: Number(produto.capital.replace(',', '.')),
+        valorCapitalPromocao: Number(produto.prom_capital.replace(',', '.')),
+        valorInterior: Number(produto.interior.replace(',', '.')),
+        valorInteriorPromocao: Number(produto.prom_interior.replace(',', '.')),
+      }) as IProduto;
+
+      const produtoCriado = setTimeout(async () => {
+        await Produto.create(produtoModel);
+        console.log('Produto criado: ' + produtoModel.descricao);
+        clearTimeout(produtoCriado);
+        return produtoModel;
+        }, 300);
+
+      produtosCriados++;
+    }
+
+    return produtosCriados;
   }
 
 }

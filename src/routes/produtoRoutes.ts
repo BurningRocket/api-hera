@@ -22,4 +22,9 @@ router.get('', async (req, res) => {
     }
 });
 
+router.get('/sincronizar', async (req, res) => {
+    const produtosCriados = await produtoService.sincronizarProdutos();
+    res.status(200).json({ message: 'Sincronização realizada com sucesso, ' + produtosCriados + ' produtos provisionados para criação.'});
+});
+
 export const produtoRoutes = router;

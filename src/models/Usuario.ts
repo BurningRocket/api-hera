@@ -13,8 +13,8 @@ export interface IUsuario extends Item{
     cep: string;
     razaoSocial: string;
     tabelaPreco: string;
-    tabelaPromocional: boolean;
     codRepresentante: string;
+    urlFoto:string;
 }
 
 const UsuarioSchema = new Schema({
@@ -58,13 +58,14 @@ const UsuarioSchema = new Schema({
     tabelaPreco: {
         type: String,
     },
-    tabelaPromocional: {
-        type: Boolean,
-        default: false
-    },
     codRepresentante: {
         type: String,
     },
+    urlFoto: {
+        type: String,
+    },
+}, {
+    timestamps: true,
 });
 
 export const Usuario = model<IUsuario>('Usuario', UsuarioSchema);

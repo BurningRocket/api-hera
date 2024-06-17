@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 export class AuthService {
     constructor() { }
 
+    //TODO: Adicionar lógica do S3 para guardar foto de perfil
     async register(registerUsuario: IUsuario) {
         if(!registerUsuario.email || !registerUsuario.senha || !registerUsuario.nome) throw { message: 'Email, senha e nome são obrigatórios' };
 

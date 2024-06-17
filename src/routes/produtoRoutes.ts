@@ -5,7 +5,6 @@ const router = express.Router();
 
 const produtoService = new ProdutoService();
 
-//TODO: Talvez juntar os métodos em um só
 router.get('', async (req, res) => {
     const codigo = req.query.codigo ? parseInt(req.query.codigo as string) : undefined;
     const descricao = req.query.descricao ? '%' + req.query.descricao + '%' as string : undefined;
@@ -20,6 +19,11 @@ router.get('', async (req, res) => {
         const produtos = await produtoService.getProdutos();
         res.status(200).json(produtos);
     }
+});
+
+router.get('/sincronizar', async (req, res) => {
+    const produtosCriados = await produtoService.sincronizarProdutos();
+    res.status(200).json({ message: 'Sincronização realizada com sucesso, ' + produtosCriados + ' produtos provisionados para criação.'});
 });
 
 export const produtoRoutes = router;

@@ -15,6 +15,7 @@ export interface IProduto extends Item{
     categoria: string;
     subCategoria: string;
     imagens: string[];
+    tags: string[];
 }
 
 const ProdutoSchema = new Schema({
@@ -55,7 +56,12 @@ const ProdutoSchema = new Schema({
     },
     imagens: {
         type: Array,
-    }
+    },
+    tags: {
+        type: Array,
+    },
+}, {
+    timestamps: true,
 });
 
 export const Produto = model<IProduto>('Produto', ProdutoSchema);

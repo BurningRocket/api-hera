@@ -5,7 +5,6 @@ const router = express.Router();
 
 const produtoService = new ProdutoService();
 
-//TODO: Talvez juntar os métodos em um só
 router.get('', async (req, res) => {
     const codigo = req.query.codigo ? parseInt(req.query.codigo as string) : undefined;
     const descricao = req.query.descricao ? '%' + req.query.descricao + '%' as string : undefined;

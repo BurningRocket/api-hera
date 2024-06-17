@@ -59,7 +59,7 @@
                   "codigo": {
                     "type": "integer",
                     "format": "int64"
-                  },  
+                  },
                   "descricao": {
                     "type": "string"
                   },

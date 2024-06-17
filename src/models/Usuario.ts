@@ -64,6 +64,8 @@ const UsuarioSchema = new Schema({
     urlFoto: {
         type: String,
     },
+}, {
+    timestamps: true,
 });
 
 export const Usuario = model<IUsuario>('Usuario', UsuarioSchema);

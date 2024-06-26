@@ -15,6 +15,8 @@ export class AuthService {
 
         registerUsuario.senha = await bcrypt.hash(registerUsuario.senha, 10);
 
+        registerUsuario.tabelaPreco = 'A';
+
         const usuario = await Usuario.create(registerUsuario);
 
         const token = jwt.sign(
@@ -65,6 +67,7 @@ export class AuthService {
             id: usuario.id,
             nome: usuario.nome,
             email: usuario.email,
+            tabelaPreco: usuario.tabelaPreco,
             token: token
         };
     }

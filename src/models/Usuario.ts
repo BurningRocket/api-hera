@@ -2,6 +2,11 @@ import { Schema, model } from 'dynamoose';
 import { Item } from "dynamoose/dist/Item";
 import { v4 as uuidv4 } from 'uuid';
 
+// A = CAPITAL
+// B = INTERIOR
+// C = CAPITAL_PROMOCAO
+// D = INTERIOR_PROMOCAO
+
 export interface IUsuario extends Item{
     id: string;
     nome: string;

@@ -55,10 +55,10 @@ app.use((req, res, next) => {
 // Create new DynamoDB instance
 const ddb = new dynamoose.aws.ddb.DynamoDB({
     "credentials": {
-        "accessKeyId": process.env.AWS_ACCESS_KEY_ID || "",
-        "secretAccessKey": process.env.AWS_SECRET_ACCESS_KEY || ""
+        "accessKeyId": process.env.AWS_LOCAL_ACCESS_KEY_ID || "",
+        "secretAccessKey": process.env.AWS_LOCAL_SECRET_ACCESS_KEY || ""
     },
-    "region": process.env.AWS_REGION || "us-east-1"
+    "region": process.env.AWS_LOCAL_REGION || "us-east-1"
 });
 
 // Set DynamoDB instance to the Dynamoose DDB instance

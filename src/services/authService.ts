@@ -33,6 +33,7 @@ export class AuthService {
         return {
             id: usuario.id,
             nome: usuario.nome,
+            isAdmin: usuario.isAdmin,
             email: usuario.email,
             token: token
         };
@@ -67,6 +68,7 @@ export class AuthService {
             id: usuario.id,
             nome: usuario.nome,
             email: usuario.email,
+            isAdmin: usuario.isAdmin,
             tabelaPreco: usuario.tabelaPreco,
             token: token
         };

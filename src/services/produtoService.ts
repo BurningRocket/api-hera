@@ -1,5 +1,8 @@
 import mysql, {Pool, PoolOptions, RowDataPacket} from 'mysql2';
 import {IProduto, Produto} from '../models/Produto';
+import AWS from 'aws-sdk';
+import multer from 'multer';
+
 
 export class ProdutoService {
   private connection: Pool;
@@ -17,7 +20,7 @@ export class ProdutoService {
     keepAliveInitialDelay: 0,
   };
 
-  constructor() {    
+  constructor() {
     this.connection = mysql.createPool(this.connectionOptions);
   }
 
@@ -29,6 +32,17 @@ export class ProdutoService {
     const sql = 'SELECT * FROM vtech_produtos';
     const produtos = await this.connection.promise().query(sql);
     return produtos[0] as RowDataPacket;
+  }
+
+  public async getProdutosByCategoria(categoria: string) {
+    console.log(categoria)
+    return Produto.scan('categoria').eq(categoria).exec();
+  }
+
+  public async getCategoriasprodutos() {
+    const sql = 'SELECT categoria FROM vtech_produtos group by categoria';
+    const categorias = await this.connection.promise().query(sql);
+    return categorias[0] as RowDataPacket;
   }
 
   public async getProdutoByCodigo(codigo: number) {
@@ -56,6 +70,7 @@ export class ProdutoService {
         valorCapitalPromocao: Number(produto.prom_capital.replace(',', '.')),
         valorInterior: Number(produto.interior.replace(',', '.')),
         valorInteriorPromocao: Number(produto.prom_interior.replace(',', '.')),
+        categoria: produto.categoria,
       }) as IProduto;
 
       const produtoCriado = setTimeout(async () => {
@@ -72,15 +87,32 @@ export class ProdutoService {
   }
 
   public async createProduto(produto: IProduto) {
-      return Produto.create(produto);
+    return Produto.create(produto);
   }
 
   public async updateProduto(produto: IProduto) {
-      return Produto.update(produto);
+    return Produto.update(produto);
+  }
+
+  public async uploadImage(id: string, file: Express.Multer.File) {
+    // const s3 = new AWS.S3({
+    //   accessKeyId: process.env.AWS_LOCAL_ACCESS_KEY_ID,
+    //   secretAccessKey: process.env.AWS_LOCAL_SECRET_ACCESS_KEY,
+    // });
+    //
+    // const uploadParams = {
+    //   Bucket: process.env.AWS_LOCAL_BUCKET_NAME,
+    //   Key: id,
+    //   Body: file.buffer,
+    //   ContentType: file.mimetype,
+    //   ACL: 'public-read',
+    // };
+    //
+    // return s3.upload(uploadParams).promise();
   }
 
   public async deleteProduto(id: string) {
-      return Produto.delete(id);
+    return Produto.delete(id);
   }
 
 }

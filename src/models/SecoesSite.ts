@@ -7,6 +7,7 @@ export interface ISecoesSite extends Item{
     titulo: string;
     subtitulo: string;
     descricao: string;
+    botao: string;
     imagem: string;
     tag: string;
     categoria: string;
@@ -25,6 +26,9 @@ const SecoesSiteSchema = new Schema({
         type: String,
     },
     descricao: {
+        type: String,
+    },
+    botao: {
         type: String,
     },
     imagem: {

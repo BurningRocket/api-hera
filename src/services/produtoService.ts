@@ -96,12 +96,12 @@ export class ProdutoService {
 
   public async uploadImage(id: string, file: Express.Multer.File) {
     // const s3 = new AWS.S3({
-    //   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //   accessKeyId: process.env.AWS_LOCAL_ACCESS_KEY_ID,
+    //   secretAccessKey: process.env.AWS_LOCAL_SECRET_ACCESS_KEY,
     // });
     //
     // const uploadParams = {
-    //   Bucket: process.env.AWS_BUCKET_NAME,
+    //   Bucket: process.env.AWS_LOCAL_BUCKET_NAME,
     //   Key: id,
     //   Body: file.buffer,
     //   ContentType: file.mimetype,

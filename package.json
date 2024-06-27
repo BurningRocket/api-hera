@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.ts",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/server.js",
-    "deploy": "sls --aws-profile aws_burning_rocket deploy",
+    "deploy": "sls deploy",
     "swagger": "node ./src/config/swagger.js"
   },
   "author": "",
